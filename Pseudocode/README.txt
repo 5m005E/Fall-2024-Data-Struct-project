@@ -1,0 +1,1 @@
+This folder should contain all the pseudocode: at least one file per class.
