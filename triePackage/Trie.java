@@ -1,5 +1,5 @@
 /*
- * Author: Caleb Brooks, Santi, Orion
+ * Authors: Caleb, Santi, Orion
  * Desc (for now). 'Trie' custom data structure for term project.
  */
 
