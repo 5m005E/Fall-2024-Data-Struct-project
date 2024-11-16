@@ -1,9 +1,7 @@
 /*
-
   Authors (group members): Caleb, Santi, Ashley
-  Email addresses of group members: cbrooks2022@my.fit.edu | 
+  Email addresses of group members: cbrooks2022@my.fit.edu | Santi's eMail | Ashley's eMail
   Group name: "ClassNotFoundException"
-
   Course:   Algorithms & Data Struct
   Section:  04
 */
