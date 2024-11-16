@@ -2,7 +2,7 @@ package triePackage;
 import java.util.HashMap;
 
 public class TrieNode {
-    HashMap<Character, TrieNode> children;
+    private HashMap<Character, TrieNode> children;
 
     public TrieNode () {
         this.children = new HashMap<>();

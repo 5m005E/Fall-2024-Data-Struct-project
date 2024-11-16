@@ -1,3 +1,11 @@
 "TrieNode" Helper Class:
 
-...
+Init with:
+- empty hash map for node children
+
+Methods:
+    Accessors:
+    Modifiers:
+    Utilities:
+    Predicates:
+        leafPredicate() <- true for no children
