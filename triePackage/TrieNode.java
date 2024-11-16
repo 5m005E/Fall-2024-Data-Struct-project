@@ -3,9 +3,11 @@ import java.util.HashMap;
 
 public class TrieNode {
     HashMap<Character, TrieNode> children;
+    boolean pathEnd;
 
     public TrieNode () {
         this.children = new HashMap<>();
+        this.pathEnd = false;
     }
     
     // Accessors
@@ -13,7 +15,7 @@ public class TrieNode {
      * @return  amt of child nodes
      */
     public int childCount () {
-        return this.children.size();
+        return children.size();
     }
 
     // Modifiers
