@@ -15,7 +15,7 @@ public class SmartWord {
 	}
 
 	public void processOldMessages (String oldMessageFile) {
-	
+		
 	}
 
 	public String[] guess (
@@ -31,7 +31,7 @@ public class SmartWord {
 	boolean isCorrectGuess, 
 	String correctWord
 	) {
-
+		
 	}
 
 }

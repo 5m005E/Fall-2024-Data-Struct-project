@@ -14,11 +14,14 @@ public class Trie {
     }
 
     // Accessors
+    public TrieNode getRoot () {
+        return root;
+    }
 
     // Modifiers
-    public void insert (final String word) {
+    public void insert (final char[] wordCharArray) {
         TrieNode current = root;
-        for (char temp : word.toCharArray()) {
+        for (char temp : wordCharArray) {
             current.children.putIfAbsent(temp, new TrieNode());
             current = current.children.get(temp);
         }
@@ -26,6 +29,9 @@ public class Trie {
     }
 
     // Utilities
+    public boolean search () {
+        return false;
+    }
 
     // Predicates
     public boolean isEmpty () {
