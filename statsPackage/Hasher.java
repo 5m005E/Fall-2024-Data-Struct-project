@@ -1,26 +1,39 @@
 package statsPackage;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Hasher {
     HashMap<String, Integer> hashedVocab;
-    ArrayList<String> vocab;
+    HashMap<String, Double> hashedOldMsgs;
 
-    public Hasher (ArrayList<String> vocab) {
-        this.hashedVocab = hashVocab();
-        this.vocab = vocab;
+    public Hasher () {
+        this.hashedVocab = new HashMap<>();
+        this.hashedOldMsgs = new HashMap<>();
     }
 
     // Accessors
+    public HashMap<String, Integer> getHashedVocab () {
+        return hashedVocab;
+    }
+
+    public HashMap<String, Double> getHashedOldMsgs () {
+        return hashedOldMsgs;
+    }
 
     // Modifiers
-    public HashMap<String, Integer> hashVocab () {
-        HashMap<String, Integer> inHashMap = new HashMap<>();
-        for (int i = 0; i < vocab.size(); i++) {
-            inHashMap.put(vocab.get(i), (i + 1));
-        }
-        return inHashMap;
+    /**
+     * @param vocab vocab word
+     * @param lnnum line number from the input file
+     */
+    public void addVocab (String vocab, int lnnum) {
+        hashedVocab.put(vocab, lnnum);
+    }
+
+    /**
+     * @param word      individual word from the 'old messages' file
+     * @param ratio     (occurrences):(total word count)
+     */
+    public void addOldMsgs (String word, double ratio) {
+        hashedOldMsgs.put(word, ratio);
     }
 
     // Predicates

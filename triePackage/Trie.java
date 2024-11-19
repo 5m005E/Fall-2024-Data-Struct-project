@@ -29,12 +29,25 @@ public class Trie {
     }
 
     // Utilities
-    public boolean search () {
-        return false;
+    /**
+     * @param word  word to search
+     * @return      whether or not the word was found
+     */
+    public boolean search (String word, boolean isPrefix) {
+        TrieNode current = root;
+        for (char temp : word.toCharArray()) {
+            current = current.children.get(temp);
+            if (current == null) {
+                return false;
+            }
+        }
+        return isPrefix || current.leafPredicate();
     }
 
     // Predicates
     public boolean isEmpty () {
         return root.leafPredicate();
     }
+
+
 }
