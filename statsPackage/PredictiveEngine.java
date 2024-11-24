@@ -17,11 +17,21 @@ public class PredictiveEngine {
         int total
     ) {
         this.hasher = hasher;
-        this.vocab = new HashMap<>();
-        this.ratios = new HashMap<>();
+        this.vocab = hasher.getHashedVocab();
+        this.ratios = hasher.getHashedOldMsgs();
         this.vocabTrie = vocabTrie;
         this.total = total;
     }
 
-    
+    public int expectedValue (char letter, int charPos) {
+        
+    }
+
+    public double variance () {
+        return 0;
+    }
+
+    public int predict () {
+        return 0;
+    }
 }

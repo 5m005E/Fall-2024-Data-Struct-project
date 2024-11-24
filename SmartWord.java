@@ -45,7 +45,7 @@ public class SmartWord {
 	public void processOldMessages (String oldMessageFile) throws FileNotFoundException {
 		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
 			String line;
-			while ((line = tempBR.readLine()) != null) {
+			while ((line = tempBR.readLine().toLowerCase()) != null) {
 				String[] lineArr = line.split(" ");
 				for (String temp : lineArr) {
 					String cleanTemp = temp.replaceAll("[^a-zA-Z]+", "");
