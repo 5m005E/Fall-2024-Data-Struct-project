@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import statsPackage.Hasher;
+import statsPackage.PredictiveEngine;
 import triePackage.Trie;
 
 public class SmartWord {
@@ -22,32 +23,45 @@ public class SmartWord {
 	Hasher hasher;
 	String wordFile;
 	Trie vocabTrie;
+	int totalVocab;
+	int inWordCount;
+	PredictiveEngine pd;
+	ArrayList<String> oldMessages;
 
 	public SmartWord (String wordFile) throws FileNotFoundException {
 		this.hasher = new Hasher();
 		this.wordFile = wordFile;
 		this.vocabTrie = new Trie();
+		this.totalVocab = 0;
+		this.inWordCount = 0;
+		this.oldMessages = new ArrayList<>();
 	}
 
+	/**
+	 * 
+	 * @param oldMessageFile
+	 * @throws FileNotFoundException
+	 */
 	public void processOldMessages (String oldMessageFile) throws FileNotFoundException {
 		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
-			ArrayList<ArrayList<String>> sentences = new ArrayList<>();
 			String line;
 			while ((line = tempBR.readLine()) != null) {
-				// TODO: add logic for parsing individual sentences
-				// String[] lineArray = line.split(" ");
-				// for (int i = 0; i < lineArray.length; i++) {
-				// ...
-				// }
+				String[] lineArr = line.split(" ");
+				for (String temp : lineArr) {
+					String cleanTemp = temp.replaceAll("[^a-zA-Z]+", "");
+					oldMessages.add(cleanTemp);
+					if (!hasher.getHashedVocab().containsKey(cleanTemp)) {
+						int newVocabHashValue = hasher.getVocabSize() + 1;
+						hasher.addVocab(cleanTemp, newVocabHashValue);
+					}
+				}
 			}
-
+			hasher.hashOldMessages(oldMessages);
 		} catch (FileNotFoundException e) {
 			throw e;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-
 	}
 
 	public void processVocab () throws FileNotFoundException {
@@ -57,6 +71,7 @@ public class SmartWord {
 			while ((line = tempBR.readLine()) != null) {
 				hasher.addVocab(line, lnnum);
 				lnnum++;
+				totalVocab++;
 				vocabTrie.insert(line.toCharArray());
 			}
 		} catch (FileNotFoundException e) {

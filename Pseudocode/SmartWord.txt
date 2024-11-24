@@ -1,9 +1,9 @@
-////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
 Algorithm General Desc.:
 
                         ...
 
-////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
 
 "guesses" string array (length:3): initialize SmartWord with a file of English words
 
@@ -11,7 +11,14 @@ Class constructor:
     initialize SmartWord with a file of English words
 
 "processOldMessages" void function:
-    process old messages from oldMessageFile
+    process old messages from oldMessageFile...
+    Try initializing a buffered reader to the old message file. 
+    While the next line in the file exists:
+        Initialize an array of strings resulting from splitting the current line. For 
+        each string in the string array, initialize a string by 'cleaning' the current 
+        string (temp). Add that string to the 'old messages' array list. If the hasher's 
+        hashmap of vocab words doesn't contain that particular key, add it to the hash 
+        map along with its new value. Hash the old messages.
 
 "guess" string[] function:
     based on a letter typed in by the user, return 3 word guesses in an array
