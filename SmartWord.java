@@ -50,7 +50,7 @@ public class SmartWord {
 				for (String temp : lineArr) {
 					String cleanTemp = temp.replaceAll("[^a-zA-Z]+", "");
 					oldMessages.add(cleanTemp);
-					if (!hasher.getHashedVocab().containsKey(cleanTemp)) {
+					if (!hasher.getProbabilityMap().containsKey(cleanTemp)) {
 						int newVocabHashValue = hasher.getVocabSize() + 1;
 						hasher.addVocab(cleanTemp, newVocabHashValue);
 					}
@@ -86,7 +86,7 @@ public class SmartWord {
 	int letterPosition,
 	int wordPosition
 	) {
-
+		
 		return guesses;
 	}
 
