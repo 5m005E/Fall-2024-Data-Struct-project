@@ -1,0 +1,42 @@
+java util imports:
+- Comparator
+- HashMap
+- Map
+- PriorityQueue
+
+local package imports:
+- Trie (triePackage)
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+CLASS CONTRUCTOR:
+    @param hasher       <- hasher object
+    @param vocabTrie    <- vocab trie object storing vocab words
+
+    inits:
+    - hasher as hasher
+    - vocabTrie as vocabTrie
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+function exValKeys():
+    init String array for later output
+
+    init 'relevant vocab' hash map using
+    hasher 'relevantHash()' method.
+
+    init min heap priority queue to store the
+    probability values of the 3 most likely
+    words.
+
+    for each entry in the entry set of relevant
+    vocab; offer the current entry to the min
+    heap priority queue. If the size of the
+    priority queue is greater than 3, poll
+    the queue (remove smallest element).
+
+    for each index in the string array; poll
+    the smallest element from the queue to the
+    string array's current index.
+
+    return the array.

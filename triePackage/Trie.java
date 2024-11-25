@@ -49,15 +49,16 @@ public class Trie {
      * @param word  word to search
      * @return      whether or not the word was found
      */
-    public boolean search (String word, boolean isPrefix) {
+    public boolean search (String word) {
         TrieNode current = root;
-        for (char temp : word.toCharArray()) {
+        char[] wordCharArray = word.toCharArray();
+        for (char temp : wordCharArray) {
             current = current.children.get(temp);
             if (current == null) {
                 return false;
             }
         }
-        return isPrefix || current.leafPredicate();
+        return current.leafPredicate();
     }
 
     /**

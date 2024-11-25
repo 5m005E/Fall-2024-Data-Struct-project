@@ -1,0 +1,69 @@
+java util imports:
+- ArrayList
+- HashMap
+- List
+
+local package imports:
+- Trie (triePackage)
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+CLASS CONSTRUCTOR:
+    inits:
+    - vocab map as new HashMap
+    - probability map as new HashMap
+    - vocab trie as new trie object
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+ACCESSOR METHODS:
+    function getVocabMap():
+        returns the vocab map.
+
+    function getProbabilityMap():
+        returns the probability map.
+
+    function relevantHash():
+        inits:
+        - new storage HashMap
+        - List of relevant words found using
+        the 'find' method from "vocabTrie" trie
+        object.
+
+        for each string in the relevant word list;
+        put each word in the storage hash map as a
+        key with its value retrieved from its
+        corresponding value in the probability map.
+
+        return the hashed relevant words.
+
+MODIFIER METHDOS:
+    function addVocab():
+        put the vocab word and its corresponding line
+        (from the "words.txt" file containing all vocab
+        words) into the vocab map.
+
+    function addProbability():
+        put a word from an old message into the probability
+        map, with its corresponding value being the ratio of
+        that word's occurrences to the total word count in the
+        old messages.
+
+function addVocabTrie():
+    store vocab trie in the hasher.
+
+UTILITY METHODS:
+    function hashOldMessages():
+        init:
+            total word count as the size
+            of the "words" string array list
+            parameter.
+
+        for each string in the key set from the vocab map;
+        init total occurrences of a given word at 0.
+            for each string in the "words" string ArrayList
+            parameter; if said string from the array list
+            is that from the vocab map, add an occurrence.
+        call 'addProbability' with parameters consisting of 
+        the key string and a double representing the ratio of
+        occurrences over total words in the messages.

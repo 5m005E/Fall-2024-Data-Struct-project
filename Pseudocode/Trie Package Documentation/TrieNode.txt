@@ -1,11 +1,17 @@
-"TrieNode" Helper Class:
+java util impoorts:
+- HashMap
 
-Init with:
-- empty hash map for node children
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
 
-Methods:
-    Accessors:
-    Modifiers:
-    Utilities:
-    Predicates:
-        leafPredicate() <- true for no children
+CLASS CONSTRUCTOR:
+    inits:
+    - children as new hash map of char keys and
+    trie node values.
+    - 'path-end' boolean primarily false.
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+PREDICATE METHOD:
+    function leafPredicate():
+        return whether the node has children. If
+        this returns false, then this node is a leaf.

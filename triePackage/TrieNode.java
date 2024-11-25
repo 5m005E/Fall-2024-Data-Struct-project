@@ -9,24 +9,10 @@ public class TrieNode {
         this.children = new HashMap<>();
         this.pathEnd = false;
     }
-    
-    // Accessors
-    /**
-     * @return  amt of child nodes
-     */
-    public int childCount () {
-        return children.size();
-    }
-
-    // Modifiers
-
-
-    // Utilities
-    
 
     // Precicates
     /**
-     * @return  true if the node has children.
+     * @return  true if the node has no children.
      */
     public boolean leafPredicate () {
         return (children.isEmpty());

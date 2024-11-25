@@ -11,18 +11,15 @@ public class PredictiveEngine {
     HashMap<String, Integer> vocabMap;
     HashMap<String, Double> probabilityMap;
     Trie vocabTrie;
-    int total;
 
     public PredictiveEngine (
         Hasher hasher,
-        Trie vocabTrie,
-        int total
+        Trie vocabTrie
     ) {
         this.hasher = hasher;
         this.vocabMap = hasher.getVocabMap();
         this.probabilityMap = hasher.getProbabilityMap();
         this.vocabTrie = vocabTrie;
-        this.total = total;
     }
 
     /**

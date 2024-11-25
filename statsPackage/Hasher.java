@@ -25,6 +25,12 @@ public class Hasher {
         return probabilityMap;
     }
 
+    /**
+     * 
+     * @param letter    input letter from 'guess()'
+     * @param charPos   input char position from 'guess()'
+     * @return          array of most likely complete words
+     */
     public HashMap<String, Double> relevantHash (char letter, int charPos) {
         HashMap<String, Double> hashed = new HashMap<>();
         List<String> relevants = vocabTrie.find(letter, charPos);
@@ -53,15 +59,13 @@ public class Hasher {
      * @param word      individual word from the 'old messages' file
      * @param ratio     (occurrences):(total word count)
      */
-    public void addOldMsg (String word, double ratio) {
+    public void addProbability (String word, double ratio) {
         probabilityMap.put(word, ratio);
     }
 
     public void addVocabTrie (Trie trie) {
         vocabTrie = trie;
     }
-
-    // Predicates
 
     // Utilities
     public void hashOldMessages (ArrayList<String> words) {
@@ -73,7 +77,7 @@ public class Hasher {
                     occurrences++;
                 }
             }
-            addOldMsg(temp, ((double) (occurrences / totalWordCount)));
+            addProbability(temp, ((double) (occurrences / totalWordCount)));
         }
     }
 }

@@ -88,8 +88,7 @@ public class SmartWord {
 		return (
 			new PredictiveEngine(
 			hasher,
-			vocabTrie,
-			hasher.getVocabSize()
+			vocabTrie
 			).exValKeys(letter, letterPosition)
 		);
 	}

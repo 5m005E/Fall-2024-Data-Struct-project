@@ -1,0 +1,95 @@
+java util imports:
+- ArrayList
+- List
+- Map
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+CLASS CONSTRUCTOR:
+    inits:
+    - root as a new trie node
+
+////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
+
+ACCESSOR METHODS:
+    function getRoot():
+        returns the root of the trie.
+    
+    function find():
+        Init storage string list for resultant
+        strings.
+
+        call "collectGivenIndex()" function using
+        parameters root, and a new StringBuilder
+        object with parameters of the a given
+        character, a given index, a current index
+        (primarily set at 0), and the resultant
+        list of strings.
+
+        return the resultant list.
+
+MODIFIER METHODS:
+    function insert():
+        Init 'current' trie node as the root.
+
+        for each character in the character
+        array parameter; give the current trie
+        node a child if it has none with parameters
+        consisting of the current character and a
+        new trie node. Point the current node to
+        the child corresponding to the current
+        character.
+
+        set the current node's "path end" boolean
+        value to 'true.'
+
+UTILITY METHODS:
+    function search():
+        Init 'current' trie node as the root, and
+        a character array for the characters is the
+        'word' parameter.
+
+        for each character in the character array;
+        set the current node to its child corresponding
+        to the current character. If the current node is
+        null, return 'false.'
+
+        return the most-true boolean value of the
+        'isPrefix' parameter, or the current node's
+        status as a leaf node.
+
+    function collect():
+        for each entry in node parameter's children's
+        entry set; init the next character as the
+        current entry's key, and the child trie node as
+        value of the current entry. Append the next
+        character to the current string. Recursively call
+        this function with parameters child trie node,
+        the current string, and the resultant string list.
+        Delete the last character from the current string.
+
+    function collectGivenIndex():
+        base case: if the node parameter is null, then do
+        nothing.
+
+        if the current index is the target index;
+            if the input node doesn't contain the key
+            corresponding to the given character; do nothing.
+        init the next trie node as the input node's child
+        corresponding to the given character. Call the
+        'collect()' function with parameters next node,
+        the current string, and the resultant string list.
+        Delete the last character from the current string.
+        Do nothing else.
+
+        for each entry in the input node's children entry
+        set; append the key of the current entry to the current
+        string. Recursively call this function with parameters
+        current entry's value, the current string, the given
+        character, target index, the incremented current index,
+        and the resultant string list. Delete the last character
+        from the current string.
+
+PREDICATE METHODS:
+    function isEmpty():
+        return whether the root node is a leaf.
