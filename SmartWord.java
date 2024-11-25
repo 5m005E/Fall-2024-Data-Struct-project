@@ -25,7 +25,6 @@ public class SmartWord {
 	Trie vocabTrie;
 	int totalVocab;
 	int inWordCount;
-	PredictiveEngine pd;
 	ArrayList<String> oldMessages;
 
 	public SmartWord (String wordFile) throws FileNotFoundException {
@@ -86,8 +85,13 @@ public class SmartWord {
 	int letterPosition,
 	int wordPosition
 	) {
-		
-		return guesses;
+		return (
+			new PredictiveEngine(
+			hasher,
+			vocabTrie,
+			hasher.getVocabSize()
+			).exValKeys(letter, letterPosition)
+		);
 	}
 
 	public void feedback (

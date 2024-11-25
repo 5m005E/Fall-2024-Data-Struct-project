@@ -25,12 +25,12 @@ public class Hasher {
         return probabilityMap;
     }
 
-    public HashMap<String, Integer> relevantHash (char letter, int charPos) {
-        HashMap<String, Integer> hashed = new HashMap<>();
+    public HashMap<String, Double> relevantHash (char letter, int charPos) {
+        HashMap<String, Double> hashed = new HashMap<>();
         List<String> relevants = vocabTrie.find(letter, charPos);
 
         for (String temp : relevants) {
-            hashed.put(temp, vocabMap.get(temp));
+            hashed.put(temp, probabilityMap.get(temp));
         }
 
         return hashed;
@@ -73,7 +73,7 @@ public class Hasher {
                     occurrences++;
                 }
             }
-            probabilityMap.put(temp, ((double) (occurrences / totalWordCount)));
+            addOldMsg(temp, ((double) (occurrences / totalWordCount)));
         }
     }
 }

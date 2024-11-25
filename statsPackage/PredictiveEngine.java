@@ -1,11 +1,14 @@
 package statsPackage;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 import triePackage.Trie;
 
 public class PredictiveEngine {
     Hasher hasher;
-    HashMap<String, Integer> vocab;
+    HashMap<String, Integer> vocabMap;
     HashMap<String, Double> probabilityMap;
     Trie vocabTrie;
     int total;
@@ -16,21 +19,38 @@ public class PredictiveEngine {
         int total
     ) {
         this.hasher = hasher;
-        this.vocab = hasher.getVocabMap();
+        this.vocabMap = hasher.getVocabMap();
         this.probabilityMap = hasher.getProbabilityMap();
         this.vocabTrie = vocabTrie;
         this.total = total;
     }
 
-    public int exVal (char letter, int charPos) {
-        double maxExVal = Double.MIN_VALUE;
+    /**
+     * 
+     * @param letter    'guess()' function input char
+     * @param charPos   'guess()' function input char index
+     * @return          3 expected values corresponding to
+     *                  the 3 best guesses.
+     */
+    public String[] exValKeys (char letter, int charPos) {
+        String[] topExValKeys = new String[3];
 
-        HashMap<String, Integer> relevants = hasher.relevantHash(letter, charPos);
+        HashMap<String, Double> relevants = hasher.relevantHash(letter, charPos);
+        PriorityQueue<Map.Entry<String, Double>> minHeap = new PriorityQueue<>(
+            Comparator.comparingDouble(Map.Entry::getValue)
+        );
 
-        return 0;
-    }
+        for (Map.Entry<String, Double> tempEntry : relevants.entrySet()) {
+            minHeap.offer(tempEntry);
+            if (minHeap.size() > 3) {
+                minHeap.poll();
+            }
+        }
 
-    public int predict () {
-        return 0;
+        for (int i = 0; i < topExValKeys.length; i++) {
+            topExValKeys[i] = minHeap.poll().getKey();
+        }
+
+        return topExValKeys;
     }
 }
