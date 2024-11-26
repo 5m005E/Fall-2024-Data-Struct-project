@@ -44,6 +44,8 @@ public class SmartWord {
 	 */
 	public void processOldMessages (String oldMessageFile) throws FileNotFoundException {
 
+		processVocab();
+
 		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
 			String line;
 			while ((line = tempBR.readLine()) != null) {
@@ -93,7 +95,6 @@ public class SmartWord {
 	int letterPosition,
 	int wordPosition
 	) {
-
 		return (
 			new PredictiveEngine(
 			hasher,

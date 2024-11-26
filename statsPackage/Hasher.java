@@ -6,9 +6,6 @@ import java.util.List;
 import triePackage.Trie;
 
 public class Hasher {
-
-    private final boolean DEBUG = true;
-
     public HashMap<String, Integer> vocabMap;
     public HashMap<String, Double> probabilityMap;
     Trie vocabTrie;
@@ -37,22 +34,11 @@ public class Hasher {
     public HashMap<String, Double> relevantHash (char letter, int charPos) {
 
         HashMap<String, Double> hashed = new HashMap<>();
-        List<String> relevants = vocabTrie.find(letter, charPos);
+        List<String> relevants = new ArrayList<>(vocabTrie.find(letter, charPos));
 
         for (String temp : relevants) {
-            if (DEBUG) {
-                System.out.println("Hash:" + temp);
-            }
             hashed.put(temp, probabilityMap.get(temp));
         }
-
-        if (DEBUG) {
-            System.out.println("Debug Hasher.relevantHash(" + Character.toString(letter) + ", " + charPos + "):");
-            for (String temp : hashed.keySet()) {
-                System.out.println(hashed.get(temp) + ":" + temp);
-            }
-        }
-
         return hashed;
     }
 
