@@ -36,6 +36,10 @@ public class Trie {
 
     // Modifiers
     public void insert (final char[] wordCharArray) {
+        if (wordCharArray == null || wordCharArray.length == 0) {
+            return;
+        }
+
         TrieNode current = root;
         for (char temp : wordCharArray) {
             current.children.putIfAbsent(temp, new TrieNode());
@@ -115,9 +119,9 @@ public class Trie {
         }
 
         for (Map.Entry<Character, TrieNode> entry : node.children.entrySet()) {
-            currentString.append(entry.getKey()); 
+            currentString.append(entry.getKey());
             collectGivenIndex(entry.getValue(), currentString, givenChar, targetIndex, currentIndex + 1, resultantList);
-            currentString.deleteCharAt(currentString.length() - 1); 
+            currentString.deleteCharAt(currentString.length() - 1);
         }
     }
 

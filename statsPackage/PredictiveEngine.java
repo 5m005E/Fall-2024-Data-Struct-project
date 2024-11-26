@@ -7,6 +7,9 @@ import java.util.PriorityQueue;
 import triePackage.Trie;
 
 public class PredictiveEngine {
+    
+    private final boolean DEBUG = true;
+
     Hasher hasher;
     HashMap<String, Integer> vocabMap;
     HashMap<String, Double> probabilityMap;
@@ -45,7 +48,9 @@ public class PredictiveEngine {
         }
 
         for (int i = 0; i < topExValKeys.length; i++) {
-            topExValKeys[i] = minHeap.poll().getKey();
+            if (!minHeap.isEmpty()) {
+                topExValKeys[i] = minHeap.poll().getKey();
+            }
         }
 
         return topExValKeys;

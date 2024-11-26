@@ -6,13 +6,18 @@ import java.util.List;
 import triePackage.Trie;
 
 public class Hasher {
+
+    private final boolean DEBUG = true;
+
     public HashMap<String, Integer> vocabMap;
     public HashMap<String, Double> probabilityMap;
+    public HashMap<String, ArrayList<HashMap<String, Integer>>> correspondenceMap;
     Trie vocabTrie;
 
     public Hasher () {
         this.vocabMap = new HashMap<>();
         this.probabilityMap = new HashMap<>();
+        this.correspondenceMap = new HashMap<>();
         this.vocabTrie = new Trie();
     }
 
@@ -25,6 +30,10 @@ public class Hasher {
         return probabilityMap;
     }
 
+    public HashMap<String, ArrayList<HashMap<String, Integer>>> getCorrespondenceMap () {
+        return correspondenceMap;
+    }
+
     /**
      * 
      * @param letter    input letter from 'guess()'
@@ -32,11 +41,26 @@ public class Hasher {
      * @return          array of most likely complete words
      */
     public HashMap<String, Double> relevantHash (char letter, int charPos) {
+
+        if (DEBUG) {
+            System.out.println("Debug Hasher.relevantHash(" + Character.toString(letter) + ", " + charPos + "):");
+        }
+
         HashMap<String, Double> hashed = new HashMap<>();
         List<String> relevants = vocabTrie.find(letter, charPos);
 
         for (String temp : relevants) {
+            if (DEBUG) {
+                System.out.println("Hash:" + temp);
+            }
             hashed.put(temp, probabilityMap.get(temp));
+        }
+
+        if (DEBUG) {
+            System.out.println("Debug Hasher.relevantHash(" + Character.toString(letter) + ", " + charPos + "):");
+            for (String temp : hashed.keySet()) {
+                System.out.println(hashed.get(temp) + ":" + temp);
+            }
         }
 
         return hashed;
@@ -61,6 +85,10 @@ public class Hasher {
      */
     public void addProbability (String word, double ratio) {
         probabilityMap.put(word, ratio);
+    }
+
+    public void addCorrespondence (String a, ArrayList<HashMap<String, Integer>> occurrenceMapList) {
+        correspondenceMap.put(a, occurrenceMapList);
     }
 
     public void addVocabTrie (Trie trie) {
