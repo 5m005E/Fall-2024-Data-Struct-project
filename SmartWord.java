@@ -12,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import statsPackage.Hasher;
 import statsPackage.PredictiveEngine;
@@ -51,10 +50,6 @@ public class SmartWord {
 
 		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
 			String line;
-			
-			ArrayList<HashMap<String, Integer>> occurrenceMapList = new ArrayList<>();
-			HashMap<String, Integer> occurrenceMap = new HashMap<>();
-			
 			while ((line = tempBR.readLine()) != null) {
 
 				line = line.toLowerCase();
@@ -70,12 +65,10 @@ public class SmartWord {
 
 					oldMessages.add(cleanTemp);
 
-					if (!hasher.getProbabilityMap().containsKey(cleanTemp)) {
+					if (!hasher.getVocabMap().containsKey(cleanTemp)) {
 						int newVocabHashValue = hasher.getVocabSize() + 1;
 						hasher.addVocab(cleanTemp, newVocabHashValue);
 					}
-
-					// TODO: add correspondence map logic
 				}
 			}
 			hasher.hashOldMessages(oldMessages);
@@ -137,5 +130,4 @@ public class SmartWord {
 	) {
 
 	}
-
 }

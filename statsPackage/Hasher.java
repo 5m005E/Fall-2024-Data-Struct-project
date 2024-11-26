@@ -11,13 +11,11 @@ public class Hasher {
 
     public HashMap<String, Integer> vocabMap;
     public HashMap<String, Double> probabilityMap;
-    public HashMap<String, ArrayList<HashMap<String, Integer>>> correspondenceMap;
     Trie vocabTrie;
 
     public Hasher () {
         this.vocabMap = new HashMap<>();
         this.probabilityMap = new HashMap<>();
-        this.correspondenceMap = new HashMap<>();
         this.vocabTrie = new Trie();
     }
 
@@ -28,10 +26,6 @@ public class Hasher {
 
     public HashMap<String, Double> getProbabilityMap () {
         return probabilityMap;
-    }
-
-    public HashMap<String, ArrayList<HashMap<String, Integer>>> getCorrespondenceMap () {
-        return correspondenceMap;
     }
 
     /**
@@ -85,10 +79,6 @@ public class Hasher {
      */
     public void addProbability (String word, double ratio) {
         probabilityMap.put(word, ratio);
-    }
-
-    public void addCorrespondence (String a, ArrayList<HashMap<String, Integer>> occurrenceMapList) {
-        correspondenceMap.put(a, occurrenceMapList);
     }
 
     public void addVocabTrie (Trie trie) {
