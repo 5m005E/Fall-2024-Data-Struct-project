@@ -8,11 +8,14 @@ import triePackage.Trie;
 public class Hasher {
     public HashMap<String, Integer> vocabMap;
     public HashMap<String, Double> probabilityMap;
+    public HashMap<String, Integer> correspondenceMap;
+    public HashMap<String, HashMap<String, Integer>> correspondenceMatrix;
     Trie vocabTrie;
 
     public Hasher () {
         this.vocabMap = new HashMap<>();
         this.probabilityMap = new HashMap<>();
+        this.correspondenceMap = new HashMap<>();
         this.vocabTrie = new Trie();
     }
 
@@ -67,6 +70,10 @@ public class Hasher {
         vocabTrie = trie;
     }
 
+    public void addCorrespondence (String a, int pos) {
+        correspondenceMap.put(a, pos);
+    }
+
     // Utilities
     public void hashOldMessages (ArrayList<String> words) {
         int totalWordCount = words.size();
@@ -88,4 +95,6 @@ public class Hasher {
             addProbability(temp, ratio);
         }
     }
+
+
 }

@@ -59,6 +59,8 @@ public class SmartWord {
 
 					oldMessages.add(cleanTemp);
 
+					hasher.addCorrespondence(cleanTemp, i);
+
 					if (!hasher.getVocabMap().containsKey(cleanTemp)) {
 						int newVocabHashValue = hasher.getVocabSize() + 1;
 						hasher.addVocab(cleanTemp, newVocabHashValue);
@@ -107,6 +109,6 @@ public class SmartWord {
 	boolean isCorrectGuess, 
 	String correctWord
 	) {
-
+		// TODO: add implementation
 	}
 }
