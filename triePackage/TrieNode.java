@@ -10,6 +10,11 @@ public class TrieNode {
         this.pathEnd = false;
     }
 
+    // Accessors
+    public HashMap<Character, TrieNode> getChildren () {
+        return children;
+    }
+
     // Precicates
     /**
      * @return  true if the node has no children.

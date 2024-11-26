@@ -18,7 +18,6 @@ import statsPackage.PredictiveEngine;
 import triePackage.Trie;
 
 public class SmartWord {
-	private final boolean DEBUG = true;
 
 	final int NUM_GUESSES = 3;
 	String[] guesses = new String[NUM_GUESSES];
@@ -44,19 +43,12 @@ public class SmartWord {
 	 * @throws FileNotFoundException
 	 */
 	public void processOldMessages (String oldMessageFile) throws FileNotFoundException {
-		if (DEBUG) {
-			System.out.println("processOldMessages(" + oldMessageFile + ")");
-		}
 
 		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
 			String line;
 			while ((line = tempBR.readLine()) != null) {
 
 				line = line.toLowerCase();
-
-				if (DEBUG) {
-					System.out.println("----------\nPARSING:" + line + "\n----------");
-				}
 
 				String[] lineArr = line.split(" ");
 				for (int i = 0; i < lineArr.length; i++) {
@@ -102,25 +94,11 @@ public class SmartWord {
 	int wordPosition
 	) {
 
-		if (DEBUG) {
-			System.out.println("VocabHashMap:");
-			for (String temp : hasher.getVocabMap().keySet()) {
-				int tempValue = hasher.getVocabMap().get(temp);
-				System.out.println("(" + tempValue + "):\t"+ temp);
-			}
-
-			System.out.println("\nProbabilityMap:");
-			for (String temp : hasher.getProbabilityMap().keySet()) {
-				double tempValue = hasher.getProbabilityMap().get(temp);
-				System.out.println("STRING:" + temp + "\tRATIO:" + tempValue);
-			}
-		}
-
 		return (
 			new PredictiveEngine(
 			hasher,
 			vocabTrie
-			).exValKeys(letter, letterPosition)
+			).exValKeys(letter, letterPosition, wordPosition)
 		);
 	}
 

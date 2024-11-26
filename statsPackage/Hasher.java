@@ -36,10 +36,6 @@ public class Hasher {
      */
     public HashMap<String, Double> relevantHash (char letter, int charPos) {
 
-        if (DEBUG) {
-            System.out.println("Debug Hasher.relevantHash(" + Character.toString(letter) + ", " + charPos + "):");
-        }
-
         HashMap<String, Double> hashed = new HashMap<>();
         List<String> relevants = vocabTrie.find(letter, charPos);
 
@@ -95,7 +91,15 @@ public class Hasher {
                     occurrences++;
                 }
             }
-            addProbability(temp, ((double) (occurrences / totalWordCount)));
+
+            double occurrencesDouble = occurrences;
+            double wordCountDouble = totalWordCount;
+            double ratio = 0;
+            if (occurrences > 0) {
+                ratio = (occurrencesDouble / wordCountDouble) * 100;
+            }
+
+            addProbability(temp, ratio);
         }
     }
 }
