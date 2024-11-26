@@ -8,6 +8,7 @@ java util imports:
 CLASS CONSTRUCTOR:
     inits:
     - root as a new trie node
+    - resultant array list for search-based retrieval.
 
 ////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
 
@@ -16,17 +17,50 @@ ACCESSOR METHODS:
         returns the root of the trie.
     
     function find():
-        Init storage string list for resultant
-        strings.
+        if the target character is a null character or the target
+        position is less than 0; throw an IllegalArgumentException
+        (invalid input).
 
-        call "collectGivenIndex()" function using
-        parameters root, and a new StringBuilder
-        object with parameters of the a given
-        character, a given index, a current index
-        (primarily set at 0), and the resultant
-        list of strings.
+        refresh resultant array list.
+        init StringBuilder object
+        call 'collect()' function with parameters the StringBuilder
+        object, the root node, the current index as 0, target character,
+        and target position.
 
         return the resultant list.
+
+    function collect():
+        Base case: if the current node is null; return.
+
+        if the current index is the target position; if the current node's
+        children contains a key equal to the target character; append the
+        target chararcter to the string builder (current string). Collect
+        all current search options via call to 'collectAll()' function with
+        parameters value of the key equal to the target character, and the
+        StringBuilder (current string). If the current string's length is
+        greater than 0; delete the last character from the current string
+        and return.
+
+        for each entry in the current node's children entry set; append the
+        key corresponding the current entry to the current string. Recursively
+        call this function with parameters current string, current entry's
+        value, the next index, the target character, and the target position.
+        If the current string's length is greater than 0; delete the last
+        character from the current string.
+
+    function collectAll():
+        if the current node is null; return.
+
+        if the current node is the end of the path, add the current string to
+        the resultant list.
+
+        for each entry in the current node's child entry set; init the current
+        child node as the current entry's value. Append the current entry's key
+        to the current string. Recursively call this function with parameters
+        child node and the current string.
+
+        if the current string's length is greater than 0; delete the last character
+        from the current string.
 
 MODIFIER METHODS:
     function insert():
@@ -44,6 +78,16 @@ MODIFIER METHODS:
         value to 'true.'
 
 UTILITY METHODS:
+    function contains():
+        Init the current node as the root, and a char array
+        as the input word to char array. For each character
+        in the char array; step the current node to the child
+        corresponding to the current character. If the current
+        node is null, return false.
+
+        return the path-end predicate after a successful full
+        iteration through the trie (true).
+
     function search():
         Init 'current' trie node as the root, and
         a character array for the characters is the
@@ -57,38 +101,6 @@ UTILITY METHODS:
         return the most-true boolean value of the
         'isPrefix' parameter, or the current node's
         status as a leaf node.
-
-    function collect():
-        for each entry in node parameter's children's
-        entry set; init the next character as the
-        current entry's key, and the child trie node as
-        value of the current entry. Append the next
-        character to the current string. Recursively call
-        this function with parameters child trie node,
-        the current string, and the resultant string list.
-        Delete the last character from the current string.
-
-    function collectGivenIndex():
-        base case: if the node parameter is null, then do
-        nothing.
-
-        if the current index is the target index;
-            if the input node doesn't contain the key
-            corresponding to the given character; do nothing.
-        init the next trie node as the input node's child
-        corresponding to the given character. Call the
-        'collect()' function with parameters next node,
-        the current string, and the resultant string list.
-        Delete the last character from the current string.
-        Do nothing else.
-
-        for each entry in the input node's children entry
-        set; append the key of the current entry to the current
-        string. Recursively call this function with parameters
-        current entry's value, the current string, the given
-        character, target index, the incremented current index,
-        and the resultant string list. Delete the last character
-        from the current string.
 
 PREDICATE METHODS:
     function isEmpty():

@@ -11,14 +11,48 @@ Class constructor:
     initialize SmartWord with a file of English words
 
 "processOldMessages" void function:
-    process old messages from oldMessageFile...
-    Try initializing a buffered reader to the old message file. 
+
+    call function processVocab() to process vocabulary.
+
+    parse old messages from oldMessageFile:
+    Try initializing a buffered reader to the old message file and
+    the current line as a string.
     While the next line in the file exists:
-        Initialize an array of strings resulting from splitting the current line. For 
-        each string in the string array, initialize a string by 'cleaning' the current 
-        string (temp). Add that string to the 'old messages' array list. If the hasher's 
-        hashmap of vocab words doesn't contain that particular key, add it to the hash 
-        map along with its new value. Hash the old messages.
+        Set the line to lower case.
+
+        Init string array list for each word in the line, and the
+        length of the entire sentence (number of strings) minus 1
+        to represent index count.
+
+        for index i in the line array; init temporary string as the
+        string at the current index in the string array, and a cleaned
+        version calling replaceAll() to replace anything but alphabetical
+        characters with empty characters.
+
+        add the current cleaned string to an array list of strings
+        representing the old messages.
+
+        add correspondence to the correspondence matrix in the hasher
+        object with parameters cleaned temporary string, current index,
+        and the length of the line string array.
+
+        if the hasher's vocab map doesn't contain the cleaned temp string
+        as a key; init a new value for the new vocab word, then add the
+        vocab word to the hash map.
+    
+    add the old messages to the hasher's probability map by calling the
+    'addOldMessages()' function with the parameter array list of each
+    word from the current line.
+
+function processVocab():
+    try initializing a buffered reader to read the 'words' input file
+    containing the vocabulary.
+
+    init current line number as 1, and init line string for processing.
+    while the next line exists; call hasher object's 'addVocab()' method
+    with parameters line and line number. Increment the line number, total
+    vocab amount. Insert the word as character array into the vocab storage
+    trie.
 
 "guess" string[] function:
     based on a letter typed in by the user, return 3 word guesses in an array

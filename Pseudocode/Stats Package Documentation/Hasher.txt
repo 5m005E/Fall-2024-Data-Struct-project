@@ -24,18 +24,28 @@ ACCESSOR METHODS:
         returns the probability map.
 
     function relevantHash():
-        inits:
-        - new storage HashMap
-        - List of relevant words found using
-        the 'find' method from "vocabTrie" trie
-        object.
+        Init storage hash map.
+        Init list of strings by calling the find() function
+        from the vocab trie with parameters input letter and its
+        position.
 
-        for each string in the relevant word list;
-        put each word in the storage hash map as a
-        key with its value retrieved from its
-        corresponding value in the probability map.
+        for each string in the storage list;
+            Init delta (displacement) through calling 'relativePos()'
+            with parameters of input word position and the current
+            string from the list.
 
-        return the hashed relevant words.
+            if delta is 1, the word has no correpsondence and can
+            therefore be skipped.
+
+            Init tunable parameter to scale delta.
+            Init adjusted probability as the value of the original
+            probability associated with the current string times
+            1 minus delta.
+
+            Put the current string as a key and its corresponding
+            adjusted probability into the storage hash map.
+
+        return the storage hash map.
 
 MODIFIER METHDOS:
     function addVocab():
@@ -52,6 +62,16 @@ MODIFIER METHDOS:
 function addVocabTrie():
     store vocab trie in the hasher.
 
+function addCorrespondence():
+    Init string position as 0.
+
+    If the length of the input line is less than 1;
+        normalize the position by casting the input position
+        parameter over the length of the input line minus 1.
+
+    merge (update) the correspondence matrix with the relative
+    position of the word.
+
 UTILITY METHODS:
     function hashOldMessages():
         init:
@@ -67,3 +87,16 @@ UTILITY METHODS:
         call 'addProbability' with parameters consisting of 
         the key string and a double representing the ratio of
         occurrences over total words in the messages.
+
+    function relativePos():
+        if the correspondence matrix doesn't contain the target
+        string as a key; return 1.0 as the maximum penalty for
+        missing correspondence.
+
+        Init target relative position as the value corresponding
+        to the key as the target string, and the displacement as
+        the absolute value of the target relative position minus
+        the position of the input 'new message' word.
+
+        return the direct displacement as delta normalized
+        by the input parameters.

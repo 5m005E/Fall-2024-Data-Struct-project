@@ -11,6 +11,11 @@ CLASS CONSTRUCTOR:
 
 ////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
 
+ACCESSOR METHOD:
+    function getChildren():
+        return the hash map containing the children
+        of this node.
+
 PREDICATE METHOD:
     function leafPredicate():
         return whether the node has children. If

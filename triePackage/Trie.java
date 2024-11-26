@@ -15,13 +15,22 @@ public class Trie {
     }
 
     // Accessors
+    /**
+     * @return  get the root of the trie.
+     */
     public TrieNode getRoot() {
         return root;
     }
 
+    /**
+     * Retrieve a list of strings pertaining to a character and its index.
+     * @param targetChar    target character
+     * @param targetPos     target character position
+     * @return              list of valid resultant strings.
+     */
     public List<String> find(char targetChar, int targetPos) {
         if (targetChar == '\0' || targetPos < 0) {
-            throw new IllegalArgumentException("Invalid targetChar or targetPos");
+            throw new IllegalArgumentException("Invalid targetChar, targetPos");
         }
 
         this.resultant = new ArrayList<>();
@@ -30,7 +39,15 @@ public class Trie {
         return resultant;
     }
 
-    public void collect(
+    /**
+     * Recursive function; collect valid search options
+     * @param currentString     StringBuilder object representing current string
+     * @param currentNode       current node in the iteration
+     * @param currentIndex      current index in the iteration
+     * @param targetChar        target character
+     * @param targetPos         target character position
+     */
+    public void collect (
         StringBuilder currentString,
         TrieNode currentNode,
         int currentIndex,
@@ -62,7 +79,15 @@ public class Trie {
         }
     }
 
-    public void collectAll(TrieNode currentNode, StringBuilder currentString) {
+    /**
+     * Recursive function; collect & store all valid search options
+     * @param currentNode
+     * @param currentString
+     */
+    public void collectAll (
+        TrieNode currentNode,
+        StringBuilder currentString
+    ) {
         if (currentNode == null) {
             return;
         }
@@ -84,7 +109,7 @@ public class Trie {
     }
 
     // Modifiers
-    public void insert(final char[] wordCharArray) {
+    public void insert (final char[] wordCharArray) {
         if (wordCharArray == null || wordCharArray.length == 0) {
             return;
         }
@@ -98,7 +123,12 @@ public class Trie {
     }
 
     // Utilities
-    public boolean contains(String word) {
+    /**
+     * Get the condition of the target word being in the trie.
+     * @param word  target word
+     * @return      whether the target word exists in the trie.
+     */
+    public boolean contains (String word) {
         TrieNode current = root;
         char[] wordCharArray = word.toCharArray();
         for (char temp : wordCharArray) {
@@ -110,12 +140,23 @@ public class Trie {
         return current.pathEnd;
     }
 
-    public void print() {
+    /**
+     * Print the trie.
+     */
+    public void print () {
         System.out.println("Print Trie:");
         printNode(root, new StringBuilder());
     }
 
-    private void printNode(TrieNode node, StringBuilder currentString) {
+    /**
+     * Recursively print a trie node.
+     * @param node              current node
+     * @param currentString     current string
+     */
+    private void printNode (
+        TrieNode node,
+        StringBuilder currentString
+    ) {
         if (node.pathEnd) {
             System.out.println(currentString.toString());
         }

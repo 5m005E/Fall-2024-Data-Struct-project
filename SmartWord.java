@@ -1,11 +1,3 @@
-/*
-  Authors (group members): Caleb, Santi, Ashley
-  Email addresses of group members: cbrooks2022@my.fit.edu | Santi's eMail | Ashley's eMail
-  Group name: "ClassNotFoundException"
-  Course:   Algorithms & Data Struct
-  Section:  04
-*/
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,28 +30,30 @@ public class SmartWord {
 	}
 
 	/**
-	 * 
-	 * @param oldMessageFile
-	 * @throws FileNotFoundException
+	 * Parse input from the old message file.
+	 * @param oldMessageFile			name of the old message file.
+	 * @throws FileNotFoundException	throw this error if oldMessageFile DNE.
 	 */
 	public void processOldMessages (String oldMessageFile) throws FileNotFoundException {
 
 		processVocab();
 
-		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
+		try (final BufferedReader tempBR = new BufferedReader(new FileReader(new File(oldMessageFile)))) {
 			String line;
 			while ((line = tempBR.readLine()) != null) {
 
 				line = line.toLowerCase();
 
-				String[] lineArr = line.split(" ");
+				final String[] lineArr = line.split(" ");
+				final int lineLength = lineArr.length - 1;
+
 				for (int i = 0; i < lineArr.length; i++) {
 					String temp = lineArr[i];
 					String cleanTemp = temp.replaceAll("[^a-zA-Z]+", "");
 
 					oldMessages.add(cleanTemp);
 
-					hasher.addCorrespondence(cleanTemp, i);
+					hasher.addCorrespondence(cleanTemp, i, lineLength);
 
 					if (!hasher.getVocabMap().containsKey(cleanTemp)) {
 						int newVocabHashValue = hasher.getVocabSize() + 1;
@@ -76,7 +70,7 @@ public class SmartWord {
 	}
 
 	public void processVocab () throws FileNotFoundException {
-		try (BufferedReader tempBR = new BufferedReader(new FileReader(new File(wordFile)))) {
+		try (final BufferedReader tempBR = new BufferedReader(new FileReader(new File(wordFile)))) {
 			int lnnum = 1;
 			String line;
 			while ((line = tempBR.readLine()) != null) {
@@ -92,6 +86,13 @@ public class SmartWord {
 		}
 	}
 
+	/**
+	 * Use predictive engine to process the best guesses.
+	 * @param letter			input letter
+	 * @param letterPosition	input letter's position in a word
+	 * @param wordPosition		relative position on a line
+	 * @return					3 best guesses as a string array list
+	 */
 	public String[] guess (
 	char letter,
 	int letterPosition,
@@ -109,6 +110,13 @@ public class SmartWord {
 	boolean isCorrectGuess, 
 	String correctWord
 	) {
-		// TODO: add implementation
+		if (!isCorrectGuess) {
+			return;
+		}
+
+		if (hasher.probabilityMap.containsKey(correctWord)) {
+			double adjustProb = hasher.probabilityMap.get(correctWord) * 2;
+			hasher.probabilityMap.replace(correctWord, adjustProb);
+		}
 	}
 }

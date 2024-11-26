@@ -12,6 +12,7 @@ public class PredictiveEngine {
     HashMap<String, Double> probabilityMap;
     Trie vocabTrie;
 
+    // Constructor
     public PredictiveEngine (
         Hasher hasher,
         Trie vocabTrie
@@ -23,7 +24,7 @@ public class PredictiveEngine {
     }
 
     /**
-     * 
+     * Get the keys corresponding to the top 3 expected values (best guesses).
      * @param letter    'guess()' function input char
      * @param charPos   'guess()' function input char index
      * @return          3 expected values corresponding to
@@ -33,7 +34,7 @@ public class PredictiveEngine {
         String[] topExValKeys = new String[3];
         hasher.addVocabTrie(vocabTrie);
 
-        HashMap<String, Double> relevants = hasher.relevantHash(letter, charPos);
+        HashMap<String, Double> relevants = hasher.relevantHash(letter, charPos, wordPos);
 
         PriorityQueue<Map.Entry<String, Double>> minHeap = new PriorityQueue<>(
             Comparator.comparingDouble(Map.Entry::getValue)

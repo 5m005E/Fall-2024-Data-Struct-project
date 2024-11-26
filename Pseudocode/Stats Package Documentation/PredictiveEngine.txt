@@ -20,23 +20,24 @@ CLASS CONTRUCTOR:
 ////\\\\////\\\\////\\\\////\\\\////\\\\////\\\\
 
 function exValKeys():
-    init String array for later output
+    init String array of keys corresponding to the
+    best guesses to output (top expected value keys).
 
-    init 'relevant vocab' hash map using
-    hasher 'relevantHash()' method.
+    Add the vocab trie to the hasher object.
 
-    init min heap priority queue to store the
-    probability values of the 3 most likely
-    words.
+    Init hash map of relevant words and their
+    corresponding likelihoods of being the correct
+    guesses.
 
-    for each entry in the entry set of relevant
-    vocab; offer the current entry to the min
-    heap priority queue. If the size of the
-    priority queue is greater than 3, poll
-    the queue (remove smallest element).
+    Init storage min-heap priority queue for sorting
+    guesses for later output.
 
-    for each index in the string array; poll
-    the smallest element from the queue to the
-    string array's current index.
+    for each entry in the entry set of relevant hashed
+    words; offer the current entry to the min heap. If
+    the min heap size exceeds 3 (number of total guesses),
+    poll the queue.
 
-    return the array.
+    for index i in the top expected value keys array, set
+    element at index i as the key from polling the queue.
+
+    return the top expected value keys.
