@@ -41,7 +41,7 @@ public class Hasher {
      * @param wordPos   input relative word position from 'guess()'
      * @return          HashMap of words and adjusted probabilities
      */
-    public HashMap<String, Double> relevantHash(char letter, int charPos, int wordPos) {
+    public HashMap<String, Double> relevantHash (char letter, int charPos, int wordPos) {
         HashMap<String, Double> hashed = new HashMap<>();
         List<String> relevants = new ArrayList<>(vocabTrie.find(letter, charPos));
 
@@ -51,8 +51,8 @@ public class Hasher {
                 continue;
             }
 
-            final double deltaWeight = 0.3; // Tunable parameter for scaling delta
-            double adjustedProbability = probabilityMap.get(temp) * (1 - deltaWeight * delta);
+            final double deltaWeight = 0.5; // Tunable parameter for scaling delta
+            double adjustedProbability = probabilityMap.get(temp) * (1 - (deltaWeight * delta));
 
             hashed.put(temp, adjustedProbability);
         }
