@@ -51,7 +51,7 @@ public class Hasher {
                 continue;
             }
 
-            final double deltaWeight = 0.5; // Tunable parameter for scaling delta
+            final double deltaWeight = 0.001; // Tunable parameter for scaling delta
             double adjustedProbability = probabilityMap.get(temp) * (1 - (deltaWeight * delta));
 
             hashed.put(temp, adjustedProbability);
