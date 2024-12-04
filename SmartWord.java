@@ -114,8 +114,10 @@ public class SmartWord {
 			return;
 		}
 
+		final double feedbackWeight = 3;	// tunable weight parameter for feedback probability
+
 		if (hasher.probabilityMap.containsKey(correctWord)) {
-			double adjustProb = hasher.probabilityMap.get(correctWord) * 2;
+			double adjustProb = hasher.probabilityMap.get(correctWord) * feedbackWeight;
 			hasher.probabilityMap.replace(correctWord, adjustProb);
 		}
 	}
