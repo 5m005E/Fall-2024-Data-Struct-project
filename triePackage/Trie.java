@@ -124,7 +124,6 @@ public class Trie {
 
     // Utilities
     /**
-     * Get the condition of the target word being in the trie.
      * @param word  target word
      * @return      whether the target word exists in the trie.
      */

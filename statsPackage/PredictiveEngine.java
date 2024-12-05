@@ -24,13 +24,13 @@ public class PredictiveEngine {
     }
 
     /**
-     * Get the keys corresponding to the top 3 expected values (best guesses).
+     * Get the keys corresponding to the top expected values
      * @param letter    'guess()' function input char
      * @param charPos   'guess()' function input char index
      * @return          3 expected values corresponding to
      *                  the 3 best guesses.
      */
-    public String[] exValKeys (char letter, int charPos, int wordPos) {
+    public String[] exValKeys(char letter, int charPos, int wordPos) {
         String[] topExValKeys = new String[3];
         hasher.addVocabTrie(vocabTrie);
 
